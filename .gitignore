@@ -16,3 +16,8 @@ node_modules/
 quota-history.json
 quota-real.js
 subscription-capacity.html
+
+# Explicitly authorized shared trace snapshots (all other traces stay ignored)
+!data/traces/**/*.jsonl
+dist/
+.vercel/

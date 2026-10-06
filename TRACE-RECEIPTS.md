@@ -2,7 +2,7 @@
 
 Open **trace-receipts.html** for the synthetic demo, or build **AI-receipts.html** from a private source manifest. It is a standalone file with its code and normalized trace data embedded. No server, API key, login, or enterprise access is needed. The default dashboard runs locally; no telemetry or prompts are uploaded. Optional CLI model enrichment explicitly sends selected excerpts to OpenAI.
 
-## Local private snapshot sources (excluded from Git)
+## Source coverage (copies shared with explicit authorization)
 
 - **Lite AI · Codex:** two main-thread rollout files, September 27 and September 30. This is the observed file coverage, not guaranteed lifetime project usage.
 - **Lite AI · Work:** September 15 original and continuation files. Metadata identifies `codex_work_desktop`; this tests the Work-originated local format. It does not validate Work Cloud exports.
@@ -10,7 +10,7 @@ Open **trace-receipts.html** for the synthetic demo, or build **AI-receipts.html
 - **Claude · Cowork:** one local `audit.jsonl` for a knowledge-space task. This is a different project from small-biz-mock and is an adapter demonstration, not an equivalent-workload comparison.
 - **Lite AI · automatic review overhead:** separately discovered guardian sessions scoped to the Lite AI directory. The runtime review model has no verified public price in the rate card. Its tokens are visible; its cost is unknown. These are excluded from the main Codex receipt.
 
-Raw logs remain untouched. Bundled data includes user prompts, model usage, IDs, tool names and source paths; it includes bounded assistant-message excerpts for summaries but omits raw tool arguments/results and reasoning text. Keep the HTML/JSON private if prompts are private.
+Raw logs remain untouched. The user authorized byte-for-byte copies under `data/traces/` and published normalized data for the Vercel demo. Original runtime paths/configuration remain local. Bundled data includes user prompts, model usage, IDs, tool names and source paths; it includes bounded assistant-message excerpts for summaries but omits raw tool arguments/results and reasoning text. Shared copies are readable by people with repository/deployment access. Future imports are browser-local unless explicitly exported or enriched.
 
 ## What the prototype does
 
