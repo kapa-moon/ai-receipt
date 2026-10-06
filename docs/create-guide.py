@@ -90,7 +90,7 @@ p('Token and dollar shares differ when a category uses a more expensive model, m
 sub('Models')
 p('Model segment width = that model’s selected recorded tokens / all selected recorded tokens × 100. The hover tooltip shows the model’s unique metered responses, recorded tokens and summed API estimate. Model response count can differ from user-message count because one message may generate many model responses.')
 sub('AI actions')
-p('The Total number row sums unique tool calls; associated token and cost columns are not summed because they overlap. An action count is the number of unique calls grouped into search/retrieve, write/edit files, run commands, browser/interface, ask/clarify, plan/coordinate, discover tools, present results or other tools. Codex exec expressions identify attempted nested calls; a failed or conditional invocation is not proof of success.')
+p('The Total number row counts tool calls and totals each linked response’s tokens and API estimate once. Responses shared by actions are deduplicated, so totals are not sums of overlapping rows. An action count is the number of unique calls grouped into search/retrieve, write/edit files, run commands, browser/interface, ask/clarify, plan/coordinate, discover tools, present results or other tools. Codex exec expressions identify attempted nested calls; a failed or conditional invocation is not proof of success.')
 p('In the expanded accounting table, an action’s associated tokens and costs come from responses linked to any of its tool IDs. Each response is counted once within that action. The same response can belong to several actions, so action columns overlap and must not be added. Unlinked calls show Unlinked usage rather than invented tokens.')
 
 

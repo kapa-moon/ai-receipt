@@ -84,7 +84,7 @@ Receipt imports read every record in each supplied file, without a daily or week
 
 Anthropic is selected by default. The three Claude demo messages start with owner-provided evaluations in `demo-reflections.js`; existing browser edits take precedence. The “Nothing moved forward” and “Lost” options have zero progress and output-status weights respectively.
 
-The receipt is centered across the entire desktop window at 58% of its width. A 20% sidebar holds navigation and references. Headers, summaries and totals stay fixed; message items scroll behind a visible black rectangular scrollbar. On narrow screens the layout adapts to preserve usable controls.
+The receipt is centered across the entire desktop window at 58% of its width. A 20% sidebar holds navigation and references. The header and totals stay fixed; usage summaries, expanded action details and all message items share one scroll area with a visible black rectangular scrollbar. On narrow screens the layout adapts to preserve usable controls.
 
 - Use-case bars represent **shares of all recorded tokens**, not percentages relative to the largest category. Cost shares use the lower API scenario. Cached tokens and different model rates make token share and cost share differ.
 - **Usefulness index** = average provided star rating / 5 × 100. Unrated messages are excluded, with coverage shown. This is a subjective index, not a validated economic utility measure.

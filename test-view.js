@@ -6,3 +6,7 @@ assert.equal(V.reflectionGain({rating:5,progress:'Working artifact',outcome:'Use
 for(const outcome of Object.keys(V.OUTCOME)){assert.ok(V.reflectionGain({rating:5,progress:'Decision',outcome})>=V.reflectionGain({rating:1,progress:'Decision',outcome}));}
 assert.ok(V.reflectionGain({rating:4,progress:'Decision',outcome:'Used / applied'})>V.reflectionGain({rating:4,progress:'Decision',outcome:'Still exploring'}));assert.ok(V.reflectionGain({rating:4,progress:'Decision',outcome:'Still exploring'})>V.reflectionGain({rating:4,progress:'Decision',outcome:'Abandoned'}));
 console.log('Receipt reflection checks passed: full import scopes, complete-only scoring, coverage, known examples and monotonicity.');
+
+const linked={rows:[{d:{id:'one'},calls:[{id:'a'},{id:'b'}],events:[{id:'shared',toolIds:['a','b'],total:20},{id:'unlinked',toolIds:[],total:50}]},{d:{id:'one'},calls:[{id:'a'}],events:[{id:'shared',toolIds:['a'],total:20}]},{d:{id:'two'},calls:[{id:'c'}],events:[{id:'shared',toolIds:['c'],total:30}]}]};
+assert.equal(V.associatedEvents(linked).length,2);assert.equal(V.associatedEvents(linked).reduce((n,e)=>n+e.total,0),50);assert.equal(V.associatedEvents({rows:[]}).length,0);
+console.log('Action total checks passed: linked responses deduplicated within each dataset; unlinked usage excluded.');
