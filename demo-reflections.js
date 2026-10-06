@@ -1,0 +1,2 @@
+/* Owner-provided demo evaluations; browser edits take precedence. */
+window.RECEIPT_DEMO_REFLECTIONS={"claude-work":{"tasks":{"4f9ef2e8-8eb7-40b0-88c2-a9291420345c":{"rating":4,"progress":"Nothing moved forward","outcome":"Lost"}}},"boba-code":{"tasks":{"f5b128d1-f96b-4226-a6a5-c57215af8a6c":{"rating":5,"progress":"Working artifact","outcome":"Needs revision"},"cc7dfba9-1e45-4b8b-8421-a4b1c193cc29":{"rating":3,"progress":"Working artifact","outcome":"Needs revision"}}}};

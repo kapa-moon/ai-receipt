@@ -90,19 +90,19 @@ p('Token and dollar shares differ when a category uses a more expensive model, m
 sub('Models')
 p('Model segment width = that model’s selected recorded tokens / all selected recorded tokens × 100. The hover tooltip shows the model’s unique metered responses, recorded tokens and summed API estimate. Model response count can differ from user-message count because one message may generate many model responses.')
 sub('AI actions')
-p('An action count is the number of unique calls grouped into search/retrieve, write/edit files, run commands, browser/interface, ask/clarify, plan/coordinate, discover tools, present results or other tools. Codex exec expressions identify attempted nested calls; a failed or conditional invocation is not proof of success.')
+p('The Total number row sums unique tool calls; associated token and cost columns are not summed because they overlap. An action count is the number of unique calls grouped into search/retrieve, write/edit files, run commands, browser/interface, ask/clarify, plan/coordinate, discover tools, present results or other tools. Codex exec expressions identify attempted nested calls; a failed or conditional invocation is not proof of success.')
 p('In the expanded accounting table, an action’s associated tokens and costs come from responses linked to any of its tool IDs. Each response is counted once within that action. The same response can belong to several actions, so action columns overlap and must not be added. Unlinked calls show Unlinked usage rather than invented tokens.')
 
 
 doc.add_page_break();h('Reflection scoring without dollar estimates')
-p('The interface asks three questions: was the result useful, what moved forward, and what happened to the output. We use them to calculate a reflection gain score. The word gain refers to reported usefulness and progress; it does not mean financial profit or causal business improvement.')
+p('The interface asks three questions: was the result useful, what moved forward, and what happened to the AI output. We use them to calculate a reflection gain score. The word gain refers to reported usefulness and progress; it does not mean financial profit or causal business improvement.')
 sub('Per message usefulness')
 p('Usefulness percentage = star rating / 5 × 100. One star is 20%, four stars 80%, and five stars 100%. An unrated message is missing data, not zero. Clicking the selected star again clears the rating.')
 sub('Per message reflection gain')
 p('Reflection gain = 100 × (0.50 × U + 0.20 × P + 0.30 × O), where U = stars / 5, P is the progress-category weight and O is the output-status weight. All three answers must be present; otherwise the score is not calculated.')
-table(['What moved forward','P'],[['Decision','1.0'],['Working artifact','1.0'],['Community connection','1.0'],['Understanding','0.8'],['Errand or operation','0.6'],['Others','0.5']],[4.8,1.7])
-table(['What happened to the output','O'],[['Used or applied','1.0'],['Ready to use','0.8'],['Needs revision','0.4'],['Still exploring','0.2'],['Abandoned','0.0']],[4.8,1.7])
-p('These category and status weights are transparent prototype choices, not empirical findings or proof that decisions are intrinsically more valuable than errands. They should be validated or revised with users. Under the current complete-response options, possible scores run from 20% to 100%. An abandoned output can still score above zero when the user reports useful learning or progress.')
+table(['What moved forward','P'],[['Decision','1.0'],['Working artifact','1.0'],['Community connection','1.0'],['Understanding','0.8'],['Errand or operation','0.6'],['Others','0.5'],['Nothing moved forward','0.0']],[4.8,1.7])
+table(['What happened to the output','O'],[['Used or applied','1.0'],['Ready to use','0.8'],['Needs revision','0.4'],['Still exploring','0.2'],['Lost or abandoned','0.0']],[4.8,1.7])
+p('These category and status weights are transparent prototype choices, not empirical findings or proof that decisions are intrinsically more valuable than errands. They should be validated or revised with users. Under the current complete-response options, possible scores run from 10% to 100%. An abandoned output can still score above zero when the user reports useful learning or progress.')
 p('Example: 4 stars, Decision, Still exploring gives 100 × (0.5 × 0.8 + 0.2 × 1 + 0.3 × 0.2) = 66%. Changing only the output status to Used or applied raises it to 90%. No dollar amount is required.')
 
 

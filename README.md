@@ -82,6 +82,8 @@ Receipt imports read every record in each supplied file, without a daily or week
 
 ## Receipt layout and value
 
+Anthropic is selected by default. The three Claude demo messages start with owner-provided evaluations in `demo-reflections.js`; existing browser edits take precedence. The “Nothing moved forward” and “Lost” options have zero progress and output-status weights respectively.
+
 The receipt is centered across the entire desktop window at 58% of its width. A 20% sidebar holds navigation and references. Headers, summaries and totals stay fixed; message items scroll behind a visible black rectangular scrollbar. On narrow screens the layout adapts to preserve usable controls.
 
 - Use-case bars represent **shares of all recorded tokens**, not percentages relative to the largest category. Cost shares use the lower API scenario. Cached tokens and different model rates make token share and cost share differ.
