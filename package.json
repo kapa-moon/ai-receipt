@@ -4,7 +4,7 @@
   "private": true,
   "description": "Local AI receipts for Codex, ChatGPT Work, Claude Code and Cowork traces",
   "scripts": {
-    "test": "node test.js && node test-traces.js && node test-ui.js && node test-quota.js && node test-quota-ui.js",
+    "test": "node test.js && node test-traces.js && node test-view.js && node test-ui.js && node test-enrich.js && node test-quota.js && node test-quota-ui.js",
     "build": "node build-traces.js",
     "quota": "node collect-quota.js"
   }

@@ -4,17 +4,17 @@ A local-first prototype for understanding AI consumption and reflecting on task 
 
 ## Try it
 
-Open **trace-receipts.html** in a browser. It includes synthetic examples for both providers and Work/Code sources. Use **Import traces** to load your own JSONL files; processing stays in your browser.
+Open **index.html** or **trace-receipts.html** in a browser. It includes synthetic examples for both providers and Work/Code sources. Choose a model vendor, then use **Upload trace files** to load your own JSONL files; processing stays in your browser.
 
-The original simpler receipt prototype is available in **index.html**.
+The private standalone build is **AI-receipts.html**. Public entry files always contain synthetic examples.
 
 ## Features
 
 - Provider-specific input, cached input, cache-write and output token accounting.
-- Public API-equivalent cost scenarios, with actual payments entered separately.
+- Public API-equivalent cost scenarios, displayed to two decimal places.
 - Tool activity and associated response usage, labeled when attribution overlaps.
-- Editable intent categories including correction, clarification and continuation.
-- Per-request reflections on usefulness, progress, evidence and next steps.
+- Read-only intent categories including correction, clarification and continuation; optional mini-model enrichment.
+- Per-message five-star usefulness ratings, progress/result menus and optional subjective dollar-value scenarios.
 - Local JSONL import, JSON receipt export and print support.
 - Subscription quota history: separate short/weekly provider-reported percentages, remaining capacity, reset times, and 5-hour/24-hour/7-day chart views. Open **quota.html** for the synthetic demo.
 
@@ -40,7 +40,7 @@ Create a **private-sources.json** manifest, which is ignored by Git:
   {
     "id": "my-project",
     "title": "My project",
-    "subtitle": "Local trace snapshot",
+    "subtitle": "Full imported trace history",
     "files": ["/absolute/path/to/session.jsonl"]
   }
 ]
@@ -76,6 +76,28 @@ Monitoring applies to the reported limit bucket, not all ordinary ChatGPT conver
 
 ## Verification
 
-Arithmetic and UI logic tests cover deduplication, cache pricing, accounting conservation, source selection, category edits and reflection persistence. Automated visual browser verification has not been completed.
+Arithmetic and UI logic tests cover deduplication, cache pricing, accounting conservation, source selection, vendor/topic/date filtering, read-only categories, star persistence, value formulas and optional API enrichment. Automated visual browser verification has not been completed.
 
-Receipt imports read every record in each supplied file, without a daily or weekly cutoff. Coverage dates and refresh time are shown separately. `trace-receipts.html` contains synthetic demo data; the private build writes your real receipts to `AI-receipts.html`. The quota dashboard alone has time-range filters.
+Receipt imports read every record in each supplied file, without a daily or weekly cutoff. Coverage dates and refresh time are shown separately. `trace-receipts.html` contains synthetic demo data; the private build writes your real receipts to `AI-receipts.html`. Receipt date filters default to All dates and select whole message entries; quota time windows are a separate feature.
+
+## Receipt layout and value
+
+The receipt is centered across the entire desktop window at 55% of its width. A 20% sidebar holds navigation and references. Headers, summaries and totals stay fixed; message items scroll behind a visible black rectangular scrollbar. On narrow screens the layout adapts to preserve usable controls.
+
+- Use-case bars represent **shares of all recorded tokens**, not percentages relative to the largest category. Cost shares use the lower API scenario. Cached tokens and different model rates make token share and cost share differ.
+- **Usefulness index** = average provided star rating / 5 × 100. Unrated messages are excluded, with coverage shown. This is a subjective index, not a validated economic utility measure.
+- **Gain scenario** = (sum of user-assigned dollar values − matching API estimate) / matching API estimate × 100. Only messages with an explicitly supplied value and known, positive model cost contribute. Ranges reflect price scenarios. Stars are never converted to money. This omits human time and other costs and is not measured profit or subscription ROI.
+
+## Optional mini-model labels and summaries
+
+Defaults use local prompt keyword rules and a short summary of observed tools plus a bounded assistant excerpt. They do not call an LLM. A server-side command can enrich a normalized receipt using [GPT-4o mini](https://developers.openai.com/api/docs/models/gpt-4o-mini) and [Responses Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs?api-mode=responses):
+
+```sh
+# Configure OPENAI_API_KEY in your shell first; never put it in browser code.
+node enrich-receipt.js lite-code.receipt.json
+node build-traces.js private-sources.json
+```
+
+The enrichment command explicitly sends bounded prompt/assistant excerpts and observed tool names to OpenAI. It uses `store: false`, records additional input/output usage separately, and writes an ignored `*.annotations.private.json`. The build picks up that file automatically; you can also upload it through the receipt UI after importing its corresponding receipt. No enrichment requests run on page load or upload. A paid API key is required; a ChatGPT subscription does not supply one. Live API enrichment has not been run in this environment. Its request/response path is tested with mocked responses.
+
+The [OpenAI value-assessment guidance](https://learn.chatgpt.com/docs/enterprise/usage-insights#assessing-value) motivates reviewing workflow evidence with the people doing the work. The formulas above are explicit prototype choices, not OpenAI-provided ROI measures.

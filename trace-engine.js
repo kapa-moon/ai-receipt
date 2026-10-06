@@ -42,8 +42,8 @@ function action(name){
 function parseJSONL(text){return text.split(/\r?\n/).filter(x=>x.trim()).map((x,i)=>{try{return JSON.parse(x);}catch{throw Error('Invalid JSONL at line '+(i+1));}});}
 function normalize(files, title='Imported trace'){
  const records=files.flatMap(f=>f.records.map((d,i)=>({...d,_file:f.name,_line:i+1}))); const provider=records.some(x=>x.type==='session_meta'||x.type==='token_usage_record')?'openai':'claude';
- const tasks=new Map(),events=new Map(),calls=new Map(),warnings=[],meta=[];let current=null,turn=null,model='unknown',pending=[],invalid=0,duplicates=0;
- const ensure=(id,time,prompt='')=>{if(!tasks.has(id))tasks.set(id,{id,time,prompt,category:intention(prompt),categorySource:'Inferred locally from prompt; editable',responseIds:[],toolIds:[]});const t=tasks.get(id);if(prompt&&!t.prompt)t.prompt=prompt;return t;};
+ const tasks=new Map(),events=new Map(),calls=new Map(),warnings=[],meta=[],outputs=new Map();let current=null,turn=null,model='unknown',pending=[],invalid=0,duplicates=0;
+ const ensure=(id,time,prompt='')=>{if(!tasks.has(id))tasks.set(id,{id,time,prompt,category:intention(prompt),categorySource:'Local keyword inference',responseIds:[],toolIds:[]});const t=tasks.get(id);if(prompt&&!t.prompt)t.prompt=prompt;return t;};
  const addCall=(id,name,task,time,origin)=>{if(calls.has(id))return;const c={id,name,action:action(name),taskId:task,time,origin};calls.set(id,c);ensure(task,time).toolIds.push(id);pending.push(id);};
  for(const d of records){const p=d.payload||{};const time=d.timestamp||d._audit_timestamp||'';
   if(provider==='openai'){
@@ -52,6 +52,7 @@ function normalize(files, title='Imported trace'){
    if(d.type==='response_item'&&p.type==='message'&&p.role==='user'){
     const s=cleanPrompt(blocks(p.content));if(s){current=turn||p.id||'prompt-'+time;ensure(current,time,s);}
    }
+   if(d.type==='response_item'&&p.type==='message'&&p.role==='assistant'){const txt=blocks(p.content);if(txt){const id=current||turn||'unassigned';outputs.set(id,txt.slice(-4000));}}
    if(d.type==='response_item'&&['custom_tool_call','function_call'].includes(p.type)){
     current=current||turn||'unassigned';
     if(p.name==='exec'){
@@ -83,7 +84,7 @@ function normalize(files, title='Imported trace'){
      // Each message is streamed into several transcript rows. Keep final/largest usage once.
      if(old)duplicates++;if(!old||e.output>=old.output)events.set(id,e);
     }
-    const event=events.get(id);
+    const event=events.get(id);const txt=blocks(content);if(txt)outputs.set(event?.taskId||current,txt.slice(-4000));
     if(Array.isArray(content))for(const b of content)if(b.type==='tool_use'){
      addCall(b.id,b.name,event?.taskId||current,time,'Observed tool_use block');if(event&&!event.toolIds.includes(b.id))event.toolIds.push(b.id);
     }
@@ -93,7 +94,7 @@ function normalize(files, title='Imported trace'){
  }
  for(const e of events.values())ensure(e.taskId,e.time).responseIds.push(e.id);
  const usedTasks=[...tasks.values()].filter(t=>t.prompt||t.responseIds.length||t.toolIds.length);
- for(const t of usedTasks){if(!t.prompt){t.prompt='No explicit user prompt recorded for this turn';t.category='Other';t.categorySource='Unassigned prompt';}else t.category=intention(t.prompt);}
+ for(const t of usedTasks){t.assistantExcerpt=outputs.get(t.id)||'';if(!t.prompt){t.prompt='No explicit user prompt recorded for this turn';t.category='Other';t.categorySource='Unassigned prompt';}else t.category=intention(t.prompt);}
  const times=records.map(d=>d.timestamp||d._audit_timestamp).filter(t=>t&&Number.isFinite(Date.parse(t))).map(t=>new Date(t).toISOString()).sort();
  const coverage={start:times[0]||null,end:times[times.length-1]||null,records:records.length};
  return {coverage,schema:'ai-receipt-trace-v1',id:title,title,provider,files:files.map(x=>x.name),meta,tasks:usedTasks,events:[...events.values()],calls:[...calls.values()],warnings,invalid,duplicates,importedAt:new Date().toISOString()};
