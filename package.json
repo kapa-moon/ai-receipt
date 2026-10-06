@@ -1,0 +1,10 @@
+{
+  "name": "ai-receipt",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local AI receipts for Codex, ChatGPT Work, Claude Code and Cowork traces",
+  "scripts": {
+    "test": "node test.js && node test-traces.js && node test-ui.js",
+    "build": "node build-traces.js"
+  }
+}

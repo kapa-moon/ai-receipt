@@ -1,0 +1,14 @@
+# Private traces and generated personal receipts
+*.jsonl
+*.receipt.json
+private-sources.json
+real-data.js
+AI-receipts.html
+receipt-*.png
+# Generated portable demo
+demo-receipts.html
+# Local files
+node_modules/
+.DS_Store
+.env
+.env.*
