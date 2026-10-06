@@ -119,7 +119,7 @@ To refresh the intentionally shared examples locally, run `npm run publish:data`
 An API key is needed only for `enrich-receipt.js`, not for importing traces or deploying this static app.
 
 - Create a key in the [OpenAI API dashboard](https://platform.openai.com/api-keys) and configure API billing.
-- Set `OPENAI_API_KEY` as an environment variable in your own terminal, then run `node enrich-receipt.js lite-code.receipt.json`.
+- Run `bash setup-api-key.sh` in your own terminal to enter the key with hidden input and save it to ignored `.env.local` (permissions 600). Alternatively, set `OPENAI_API_KEY` in your terminal environment. Then run `node enrich-receipt.js lite-code.receipt.json`.
 - Upload the resulting annotations JSON into the matching receipt, or rebuild the private standalone receipt.
 - Do not add the key to Git, the HTML, `shared-data.js`, or a browser form. Adding it to Vercel alone will not enable summaries: this static app has no API backend. Runtime summaries would require a server-side endpoint with usage controls.
 

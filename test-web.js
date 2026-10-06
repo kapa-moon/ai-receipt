@@ -7,3 +7,5 @@ const html=fs.readFileSync('dist/index.html','utf8');assert.ok(html.includes('sr
 assert.ok(!fs.existsSync('dist/private-sources.json'));assert.ok(!fs.existsSync('dist/quota-current.private.json'));assert.ok(!fs.existsSync('dist/enrich-receipt.js'));
 assert.equal(credentialHits('sk-proj-'+'x'.repeat(40)),1);assert.equal(credentialHits('ordinary transcript text'),0);
 console.log('Web publication checks passed: all 12 complete sources, byte lengths/hashes, credential-pattern scan, normalization conservation, real-data entry, upload guidance and deployment allowlist.');
+
+assert.ok(html.includes("Choose a model vendor (OpenAI or Anthropic) in the top-right corner to open the receipt."));assert.ok(!html.includes("Your AI work, itemized."));assert.ok(!fs.existsSync("dist/.env.local"));assert.ok(!fs.existsSync("dist/setup-api-key.sh"));
