@@ -1,0 +1,118 @@
+{
+  "schema": "shared-traces-v2",
+  "snapshotAt": "2026-10-06T23:08:35.063Z",
+  "datasets": [
+    {
+      "id": "lite-code",
+      "title": "Lite AI · Codex",
+      "coverage": {
+        "start": "2026-09-28T00:17:04.084Z",
+        "end": "2026-10-03T03:58:51.795Z",
+        "measuredResponses": 131
+      },
+      "publication": {
+        "curated": true,
+        "removedMessages": 2,
+        "withheldReviewContexts": 0
+      },
+      "files": [
+        {
+          "path": "data/curated/lite-code.receipt.json",
+          "bytes": 128216,
+          "sha256": "a4227fd0888a041a2846212101e41ea452398840c93ca636465b95d2651c273b",
+          "kind": "curated-receipt"
+        }
+      ]
+    },
+    {
+      "id": "lite-work",
+      "title": "Lite AI · Work",
+      "coverage": {
+        "start": "2026-09-16T01:17:45.204Z",
+        "end": "2026-09-16T02:08:38.195Z",
+        "measuredResponses": 3
+      },
+      "publication": {
+        "curated": true,
+        "removedMessages": 10,
+        "withheldReviewContexts": 0
+      },
+      "files": [
+        {
+          "path": "data/curated/lite-work.receipt.json",
+          "bytes": 8436,
+          "sha256": "152af3cbea5d691af3fb572cfaab085a1ca35bf6b01ffd5cd709718482df2ae7",
+          "kind": "curated-receipt"
+        }
+      ]
+    },
+    {
+      "id": "boba-code",
+      "title": "Small-biz-mock · Claude Code",
+      "coverage": {
+        "start": "2026-10-06T18:09:28.993Z",
+        "end": "2026-10-06T18:29:35.196Z",
+        "measuredResponses": 45
+      },
+      "publication": {
+        "curated": true,
+        "removedMessages": 0,
+        "withheldReviewContexts": 0
+      },
+      "files": [
+        {
+          "path": "data/traces/boba-code/9d312560-f245-4896-b100-cb984274f261.jsonl",
+          "bytes": 2010634,
+          "records": 411,
+          "sha256": "d1ab270fa04ac0d8731f25a21b212338a2e21738ae2c93f60fa4e89bfb056047",
+          "kind": "original-trace"
+        }
+      ]
+    },
+    {
+      "id": "claude-work",
+      "title": "Claude · Cowork",
+      "coverage": {
+        "start": "2026-07-06T03:49:41.940Z",
+        "end": "2026-07-06T03:52:41.884Z",
+        "measuredResponses": 10
+      },
+      "publication": {
+        "curated": true,
+        "removedMessages": 0,
+        "withheldReviewContexts": 0
+      },
+      "files": [
+        {
+          "path": "data/traces/claude-work/audit.jsonl",
+          "bytes": 67375,
+          "records": 69,
+          "sha256": "eeba3da01cba1405e713be85fb319f68fc9bfaaa1df08f0ab9bff87c81108a26",
+          "kind": "original-trace"
+        }
+      ]
+    },
+    {
+      "id": "lite-review",
+      "title": "Lite AI · automatic review overhead",
+      "coverage": {
+        "start": "2026-09-28T00:17:50.691Z",
+        "end": "2026-10-03T03:58:45.499Z",
+        "measuredResponses": 45
+      },
+      "publication": {
+        "curated": true,
+        "removedMessages": 0,
+        "withheldReviewContexts": 2
+      },
+      "files": [
+        {
+          "path": "data/curated/lite-review.receipt.json",
+          "bytes": 688555,
+          "sha256": "6b6d30681c866f5831d09a798cb2ebf7d53dfc527c7c65c6bf4a3f614a76988c",
+          "kind": "curated-receipt"
+        }
+      ]
+    }
+  ]
+}

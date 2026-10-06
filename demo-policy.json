@@ -1,0 +1,21 @@
+{
+  "schema": "demo-curation-v1",
+  "excludedTasks": {
+    "lite-work": [
+      "01a0a581-81c9-7183-97d0-835e027bda7e",
+      "01a0a58a-29c2-7e50-a346-cd438cf7300d",
+      "01a0a7bf-d956-75e0-b8ab-bd67045bbf90",
+      "01a0b637-042c-7df0-a898-b0a3707b9d4d",
+      "01a0b645-6e33-7f20-9328-57f3672d225d",
+      "01a0b668-c7bf-7383-98df-59db86fe3c7d",
+      "01a0b73e-c546-78c1-9c00-b1849a5026e8",
+      "01a0e417-5b41-7c82-8fdc-6b60df28798f",
+      "01a0e87b-5449-70e0-afd9-3c3bcea3edac",
+      "01a0f511-a949-7892-ab29-054591d5000a"
+    ],
+    "lite-code": [
+      "01a0f51e-6456-71d0-832b-68c41d84ad4c",
+      "01a0f51e-dec8-7833-b69e-23876f0e66b5"
+    ]
+  }
+}

@@ -82,11 +82,11 @@ Receipt imports read every record in each supplied file, without a daily or week
 
 ## Receipt layout and value
 
-The receipt is centered across the entire desktop window at 55% of its width. A 20% sidebar holds navigation and references. Headers, summaries and totals stay fixed; message items scroll behind a visible black rectangular scrollbar. On narrow screens the layout adapts to preserve usable controls.
+The receipt is centered across the entire desktop window at 58% of its width. A 20% sidebar holds navigation and references. Headers, summaries and totals stay fixed; message items scroll behind a visible black rectangular scrollbar. On narrow screens the layout adapts to preserve usable controls.
 
 - Use-case bars represent **shares of all recorded tokens**, not percentages relative to the largest category. Cost shares use the lower API scenario. Cached tokens and different model rates make token share and cost share differ.
 - **Usefulness index** = average provided star rating / 5 × 100. Unrated messages are excluded, with coverage shown. This is a subjective index, not a validated economic utility measure.
-- **Gain scenario** = (sum of user-assigned dollar values − matching API estimate) / matching API estimate × 100. Only messages with an explicitly supplied value and known, positive model cost contribute. Ranges reflect price scenarios. Stars are never converted to money. This omits human time and other costs and is not measured profit or subscription ROI.
+- **Reflection gain score** = 100 × (0.50 × stars/5 + 0.20 × progress weight + 0.30 × output-status weight). All three answers are required; the total is the mean of complete message scores. No dollar values are required. Weights are illustrative design choices, not validated financial ROI or intrinsic rankings of work. See `docs/AI-receipt-calculations.docx` for all weights, formulas and missing-data rules.
 
 ## Optional mini-model labels and summaries
 
@@ -100,7 +100,7 @@ node build-traces.js private-sources.json
 
 The enrichment command explicitly sends bounded prompt/assistant excerpts and observed tool names to OpenAI. It uses `store: false`, records additional input/output usage separately, and writes an ignored `*.annotations.private.json`. The build picks up that file automatically; you can also upload it through the receipt UI after importing its corresponding receipt. No enrichment requests run on page load or upload. A paid API key is required; a ChatGPT subscription does not supply one. Live API enrichment has not been run in this environment. Its request/response path is tested with mocked responses.
 
-The [OpenAI value-assessment guidance](https://learn.chatgpt.com/docs/enterprise/usage-insights#assessing-value) motivates reviewing workflow evidence with the people doing the work. The formulas above are explicit prototype choices, not OpenAI-provided ROI measures.
+The [OpenAI value-assessment guidance](https://learn.chatgpt.com/docs/enterprise/usage-insights#assessing-value) motivates reviewing workflow evidence with the people doing the work. The formulas above are explicit prototype choices, not OpenAI-provided ROI measures. Use cases and AI actions start collapsed so message items have more space.
 
 ## Deploy on Vercel
 
@@ -110,9 +110,9 @@ The [OpenAI value-assessment guidance](https://learn.chatgpt.com/docs/enterprise
 
 **No environment variables or API key are needed for the deployed receipt app.** Visitors can select trace files with the upload button, read instructions with its adjacent `?`, filter messages, rate results and export their own receipts. The selected files are processed in the browser, with no upload endpoint. Imported data is temporary until exported; reflections persist in that browser's local storage.
 
-The owner explicitly authorized publication of all 12 original source files and their normalized receipts. These files are accessible in the repository and in the deployed app. The source snapshots are byte-for-byte copies and include conversation/tool content and metadata, not just token totals. The publisher checks common credential patterns and aborts on matches; this is a heuristic check, not a guarantee. Private configuration, auth files and API keys are not deployment assets.
+The owner subsequently requested removal of 12 message entries from the shared demo. The demo now contains curated Lite AI receipts and two unchanged Claude original traces. Original Lite raw files are no longer public because they contain the withheld messages and resumed context. These files are accessible in the repository and in the deployed app. New browser uploads remain complete; only the built-in shared demo is curated. Source runtime logs are untouched. The publisher checks common credential patterns and aborts on matches; this is a heuristic check, not a guarantee. Private configuration, auth files and API keys are not deployment assets.
 
-To refresh the intentionally shared examples locally, run `npm run publish:data`, inspect the Git diff, then commit and push the generated `data/`, `shared-data.js` and `shared-quota.js`. Deployment builds use committed shared data and never reach into your home directory. `npm run test:web` verifies original file hashes, complete normalization and the static asset allowlist.
+To refresh the intentionally shared examples locally, run `npm run publish:data`, inspect the Git diff, then commit and push the generated `data/`, `shared-data.js` and `shared-quota.js`. Deployment builds use committed shared data and never reach into your home directory. `npm run test:web` verifies shared-file hashes, exactly 12 exclusions, retained counts and the static asset allowlist.
 
 ### Optional API key setup for mini-model enrichment
 
@@ -124,3 +124,5 @@ An API key is needed only for `enrich-receipt.js`, not for importing traces or d
 - Do not add the key to Git, the HTML, `shared-data.js`, or a browser form. Adding it to Vercel alone will not enable summaries: this static app has no API backend. Runtime summaries would require a server-side endpoint with usage controls.
 
 The `?` popup documents Codex/local Work rollouts, Claude Code transcripts, the experimental Cowork audit location, unsupported chat exports and how to keep imports across reloads.
+
+Shared demo exclusions are listed by immutable message IDs in `demo-policy.json`. Re-publication and private receipt builds apply this policy to the built-in Lite data. Two automatic-review rows retain their counts but withhold copied private prompt context. Publication never applies this policy to visitor uploads.

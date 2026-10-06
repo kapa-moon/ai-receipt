@@ -21,3 +21,7 @@ subscription-capacity.html
 !data/traces/**/*.jsonl
 dist/
 .vercel/
+
+!data/curated/*.receipt.json
+docs/qa/
+docs/qa-final/

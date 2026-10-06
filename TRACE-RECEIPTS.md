@@ -10,14 +10,14 @@ Open **trace-receipts.html** for the full shared real traces, or build **AI-rece
 - **Claude · Cowork:** one local `audit.jsonl` for a knowledge-space task. This is a different project from small-biz-mock and is an adapter demonstration, not an equivalent-workload comparison.
 - **Lite AI · automatic review overhead:** separately discovered guardian sessions scoped to the Lite AI directory. The runtime review model has no verified public price in the rate card. Its tokens are visible; its cost is unknown. These are excluded from the main Codex receipt.
 
-Raw logs remain untouched. The user authorized byte-for-byte copies under `data/traces/` and published normalized data for the Vercel demo. Original runtime paths/configuration remain local. Bundled data includes user prompts, model usage, IDs, tool names and source paths; it includes bounded assistant-message excerpts for summaries but omits raw tool arguments/results and reasoning text. Shared copies are readable by people with repository/deployment access. Future imports are browser-local unless explicitly exported or enriched.
+Raw logs remain untouched. The user later withdrew 12 message entries from the shared demo. Lite datasets are now curated normalized receipts; original Lite raw files are not public. The two Claude traces remain unchanged. Original runtime paths/configuration remain local. Bundled data includes user prompts, model usage, IDs, tool names and source paths; it includes bounded assistant-message excerpts for summaries but omits raw tool arguments/results and reasoning text. Shared copies are readable by people with repository/deployment access. Future imports are browser-local unless explicitly exported or enriched.
 
 ## What the prototype does
 
 1. Shows measured token categories and current public API-equivalent token costs.
 2. Groups consumption by inferred user intent: build/create, research/explore, explain/learn, correction/refinement, back-and-forth/clarification, setup/connect, continue work, other. Classification uses local rules over the opening of the prompt, costs nothing, and is read-only in the receipt UI. This is a proposed taxonomy, not OpenAI's proprietary classifier.
 3. Counts AI tool calls and associates model responses with actions. `exec` wrapper source identifies nested invocation expressions. It does not prove each expression ran or succeeded. Browser `js` is counted at the observed call level, not each browser click.
-4. Gives every message five-star usefulness ratings and progress/result menus, with optional dollar values for a clearly labelled gain scenario. This is self-report; it does not claim profit, time saved or causal value.
+4. Gives every message five-star usefulness ratings and progress/result menus, with a weighted reflection gain score derived from all three answers. This is self-report; it does not claim profit, time saved or causal value.
 5. Keeps API-equivalent cost distinct from subscription billing. The payment-entry form has been removed.
 6. Imports raw JSONL locally, exports a receipt stack with reflections, and prints via the browser. Multiple raw files in one import should be from one provider and one intended scope.
 
@@ -51,7 +51,7 @@ Raw logs remain untouched. The user authorized byte-for-byte copies under `data/
 
 `node build-traces.js private-sources.json` rebuilds normalized snapshots and the portable HTML from local source files listed in an ignored manifest. Without a manifest, the command builds a synthetic demo. It reads source traces only and writes artifacts in this directory.
 
-`node test-traces.js` checks provider normalization, duplicate-stream handling, Claude cache-duration pricing, reasoning subsets, unknown rates, and conservation across all five synthetic demo datasets. `node test-ui.js` checks rendering, vendor/topic/date scopes, star ratings and reflection persistence with a lightweight DOM harness. This is not visual browser testing.
+`node test-traces.js` checks provider normalization, duplicate-stream handling, Claude cache-duration pricing, reasoning subsets, unknown rates, and conservation across all five synthetic adapter datasets. `node test-ui.js` checks rendering, vendor/topic/date scopes, star ratings and reflection persistence with a lightweight DOM harness. This is not visual browser testing.
 
 The browser preview rejected local `file:` URLs; the headless test environment had no installed browser. Visual QA and a real browser import/export round trip remain unverified. Open the standalone file yourself to inspect the desktop/mobile layout.
 
