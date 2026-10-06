@@ -9,7 +9,7 @@ if(manifest){
  for(const d of datasets)fs.writeFileSync(path.join(__dirname,d.id+'.receipt.json'),JSON.stringify(d,null,2));
 }else datasets=require('./demo-data.js');
 const data='window.RECEIPT_DATA='+JSON.stringify(datasets).replace(/</g,'\\u003c')+';';
-const html=fs.readFileSync(path.join(__dirname,'trace-receipts.html'),'utf8');
+let html=fs.readFileSync(path.join(__dirname,'trace-receipts.html'),'utf8');if(manifest)html=html.replace('href="quota.html"','href="subscription-capacity.html"');
 const standalone=html.replace(/<script src="(trace-engine\.js|demo-data\.js|trace-ui\.js)"><\/script>/g,(_,name)=>'<script>'+(name==='demo-data.js'?data:fs.readFileSync(path.join(__dirname,name),'utf8')).replace(/<\/script/gi,'<\\/script')+'</script>');
 const output=manifest?'AI-receipts.html':'demo-receipts.html';
 fs.writeFileSync(path.join(__dirname,output),standalone);

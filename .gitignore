@@ -12,3 +12,7 @@ node_modules/
 .DS_Store
 .env
 .env.*
+*.private.json
+quota-history.json
+quota-real.js
+subscription-capacity.html

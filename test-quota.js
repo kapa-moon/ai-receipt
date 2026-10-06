@@ -1,0 +1,13 @@
+const assert=require('assert/strict'),Q=require('./quota-engine');
+const t='2026-10-06T14:00:00Z';const rows=Q.snapshot({rateLimitsByLimitId:{codex:{planType:'plus',primary:{usedPercent:33,windowDurationMins:300,resetsAt:100},secondary:{usedPercent:86,windowDurationMins:10080,resetsAt:200}}}},t);
+assert.equal(Q.remaining(rows[0].primary),67);assert.equal(Q.remaining(rows[0].secondary),14);assert.equal(rows[0].plan,'plus');
+const traces=Q.fromTraces([{type:'event_msg',timestamp:t,payload:{type:'token_count',rate_limits:{limit_id:'codex',primary:{used_percent:33,window_minutes:300,resets_at:100}}}}]);assert.equal(traces[0].primary.usedPercent,33);assert.equal(traces[0].secondary,null);
+assert.equal(Q.merge([...rows,...rows]).length,1);
+const later=(min,used,reset=100)=>({...rows[0],capturedAt:new Date(Date.parse(t)+min*60000).toISOString(),primary:{...rows[0].primary,usedPercent:used,resetsAt:reset}});
+assert.equal(Q.segments([rows[0],later(10,40)],'primary').length,1);
+assert.equal(Q.segments([rows[0],later(60,40)],'primary').length,0);
+assert.equal(Q.segments([rows[0],later(10,0,300)],'primary').length,0);
+assert.equal(Q.segments([rows[0],later(10,10)],'primary').length,0);
+assert.equal(Q.snapshot({rateLimits:{limitId:'codex',primary:null,secondary:{usedPercent:42,windowDurationMins:10080}}},t)[0].primary,null);
+assert.throws(()=>Q.snapshot({rateLimits:{}},'bad-date'));
+console.log('Quota tests passed: snake/camel provider fields, shared buckets, missing window, deduplication, reset/decrease/gap breaks, timestamp validation.');
