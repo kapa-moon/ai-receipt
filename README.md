@@ -4,7 +4,7 @@ A local-first prototype for understanding AI consumption and reflecting on task 
 
 ## Try it
 
-Open **index.html** or **trace-receipts.html** in a browser. The landing page includes the authorized real examples for both providers and Work/Code sources. `trace-receipts.html` remains a synthetic source template; the Vercel build replaces its demo loader with the real shared data. Choose a model vendor, then use **Upload trace files** to load your own JSONL files; processing stays in your browser.
+Open **index.html** or **trace-receipts.html** in a browser. The landing page includes the authorized real examples for both providers and Work/Code sources. `index.html`, `trace-receipts.html` and the Vercel deployment all load the full shared real data. Use `npm run build:demo` for an explicitly synthetic demo. Choose a model vendor, then use **Upload trace files** to load your own JSONL files; processing stays in your browser.
 
 The private standalone build is **AI-receipts.html**. The public landing page now loads shared real examples. Original shared traces are in `data/traces/`, with coverage and SHA-256 hashes in `data/trace-manifest.json`.
 

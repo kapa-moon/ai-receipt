@@ -1,6 +1,6 @@
 # Real-trace AI receipts
 
-Open **trace-receipts.html** for the synthetic demo, or build **AI-receipts.html** from a private source manifest. It is a standalone file with its code and normalized trace data embedded. No server, API key, login, or enterprise access is needed. The default dashboard runs locally; no telemetry or prompts are uploaded. Optional CLI model enrichment explicitly sends selected excerpts to OpenAI.
+Open **trace-receipts.html** for the full shared real traces, or build **AI-receipts.html** from a private source manifest. `npm run build:demo` creates a separate synthetic demo. It is a standalone file with its code and normalized trace data embedded. No server, API key, login, or enterprise access is needed. The default dashboard runs locally; no telemetry or prompts are uploaded. Optional CLI model enrichment explicitly sends selected excerpts to OpenAI.
 
 ## Source coverage (copies shared with explicit authorization)
 
