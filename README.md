@@ -77,3 +77,5 @@ Monitoring applies to the reported limit bucket, not all ordinary ChatGPT conver
 ## Verification
 
 Arithmetic and UI logic tests cover deduplication, cache pricing, accounting conservation, source selection, category edits and reflection persistence. Automated visual browser verification has not been completed.
+
+Receipt imports read every record in each supplied file, without a daily or weekly cutoff. Coverage dates and refresh time are shown separately. `trace-receipts.html` contains synthetic demo data; the private build writes your real receipts to `AI-receipts.html`. The quota dashboard alone has time-range filters.

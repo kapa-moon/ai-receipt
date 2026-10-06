@@ -94,7 +94,9 @@ function normalize(files, title='Imported trace'){
  for(const e of events.values())ensure(e.taskId,e.time).responseIds.push(e.id);
  const usedTasks=[...tasks.values()].filter(t=>t.prompt||t.responseIds.length||t.toolIds.length);
  for(const t of usedTasks){if(!t.prompt){t.prompt='No explicit user prompt recorded for this turn';t.category='Other';t.categorySource='Unassigned prompt';}else t.category=intention(t.prompt);}
- return {schema:'ai-receipt-trace-v1',id:title,title,provider,files:files.map(x=>x.name),meta,tasks:usedTasks,events:[...events.values()],calls:[...calls.values()],warnings,invalid,duplicates,importedAt:new Date().toISOString()};
+ const times=records.map(d=>d.timestamp||d._audit_timestamp).filter(t=>t&&Number.isFinite(Date.parse(t))).map(t=>new Date(t).toISOString()).sort();
+ const coverage={start:times[0]||null,end:times[times.length-1]||null,records:records.length};
+ return {coverage,schema:'ai-receipt-trace-v1',id:title,title,provider,files:files.map(x=>x.name),meta,tasks:usedTasks,events:[...events.values()],calls:[...calls.values()],warnings,invalid,duplicates,importedAt:new Date().toISOString()};
 }
 function price(e,rates=RATES){
  const r=rates[e.model];if(!r)return {low:null,high:null,reason:'Model has no verified rate'};
