@@ -88,7 +88,7 @@ The receipt is centered across the entire desktop window at 58% of its width. A 
 
 - Use-case bars represent **shares of all recorded tokens**, not percentages relative to the largest category. Cost shares use the lower API scenario. Cached tokens and different model rates make token share and cost share differ.
 - **Usefulness index** = average provided star rating / 5 × 100. Unrated messages are excluded, with coverage shown. This is a subjective index, not a validated economic utility measure.
-- **Reflection gain score** = 100 × (0.50 × stars/5 + 0.20 × progress weight + 0.30 × output-status weight). All three answers are required; the total is the mean of complete message scores. No dollar values are required. Weights are illustrative design choices, not validated financial ROI or intrinsic rankings of work. See `docs/AI-receipt-calculations.docx` for all weights, formulas and missing-data rules.
+- **Reflection gain score** = 100 × (0.50 × stars/5 + 0.20 × progress weight + 0.30 × output-status weight). All three answers are required; the total is the mean of complete message scores. No dollar values are required. Weights are illustrative design choices, not validated financial ROI or intrinsic rankings of work.
 
 ## Optional mini-model labels and summaries
 

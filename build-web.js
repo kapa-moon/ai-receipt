@@ -6,5 +6,4 @@ for(const name of files){if(!fs.existsSync(path.join(root,name)))throw Error('Mi
 const html=fs.readFileSync(path.join(root,'trace-receipts.html'),'utf8').replace('src="demo-data.js"','src="shared-data.js"');for(const name of ['index.html','trace-receipts.html'])fs.writeFileSync(path.join(out,name),html);
 const quota=fs.readFileSync(path.join(root,'quota.html'),'utf8').replace('src="quota-demo.js"','src="shared-quota.js"');fs.writeFileSync(path.join(out,'quota.html'),quota);
 fs.cpSync(path.join(root,'data'),path.join(out,'data'),{recursive:true});
-if(fs.existsSync(path.join(root,'docs/AI-receipt-calculations.docx'))){fs.mkdirSync(path.join(out,'docs'),{recursive:true});fs.copyFileSync(path.join(root,'docs/AI-receipt-calculations.docx'),path.join(out,'docs/AI-receipt-calculations.docx'));}
 console.log('Built dist/: curated shared receipts, quota history, browser-only uploads.');
